@@ -45,9 +45,10 @@ int rowCounter(char* fileName) {
     // return 0 = exit success
     // return -1 = exit not successful
     if (!filePointer) {
-        printf("File is not open!");
+        printf("file is not open!");
         return -1;
     }
+
     
     //char buffer pohranjuje niz char-ova
     //u ovom slucaju on moze maksimalno primit 1024 char-a jer je to maksimalni broj znakova u jednom redu
@@ -96,7 +97,7 @@ int main() {
         return -1;
     }
 
-    //ovime dinamicki alociramo memoriju
+    //dinamicki alociramo memoriju za studente
     Student* stud = NULL;
     stud = (Student*)malloc(noStudents * sizeof(Student));
 
