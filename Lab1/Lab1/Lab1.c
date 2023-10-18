@@ -1,13 +1,4 @@
-﻿//digresija profesora: "Direktiva "#define _CRT_SECURE_NO_WARNINGS" se koristi kako bi se isključila upozorenja vezana za korištenje 
-// nesigurnih funkcija za rad sa stringovima i datotekama, kao što su scanf, gets, fopen, itd."
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h>
-
-// zakomentiras sa ctrl + K + C
-//odkomentiras sa ctrl + K + U
-
-/*
+﻿/*
 1. Napisati program koji prvo procita koliko redaka ima datoteka, tj.koliko ima studenata
 zapisanih u datoteci.Nakon toga potrebno je dinamicki alocirati prostor za niz struktura
 studenata(ime, prezime, bodovi) i ucitati iz datoteke sve zapise.Na ekran ispisati ime,
@@ -15,6 +6,15 @@ prezime, apsolutni i relativni broj bodova.
 Napomena: Svaki redak datoteke sadrži ime i prezime studenta, te broj bodova na kolokviju.
 relatvan_br_bodova = br_bodova / max_br_bodova * 100
 */
+
+//digresija profesora: "Direktiva "#define _CRT_SECURE_NO_WARNINGS" se koristi kako bi se isključila upozorenja vezana za korištenje 
+// nesigurnih funkcija za rad sa stringovima i datotekama, kao što su scanf, gets, fopen, itd."
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+// zakomentiras sa ctrl + K + C
+//odkomentiras sa ctrl + K + U
 
 #define SUCCESS (0)
 #define EXIT (-1)
