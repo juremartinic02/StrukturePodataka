@@ -33,12 +33,17 @@ typedef struct _student {
 int rowCounter(char* fileName) {
     int noRows = 0;
 
+    //char buffer pohranjuje niz char-ova
+    //u ovom slucaju on moze maksimalno primit 1024 char-a jer je to maksimalni broj znakova u jednom redu
+    char buffer[MAX_LINE];
+
     //ako se file ne nalazi u folderu ka i solution moras napisat cijeli path od txt file-a
     // r - read file,
     // w - write(ako ne nadje file stvori ga, ako ima file izbrise sve i pocne pisat),
     // a - append
 
-    FILE* filePointer = fopen(fileName, "r");
+    FILE* filePointer = NULL;
+    filePointer = fopen(fileName, "r");
 
     //!filePointer, tj. negacijom filePointera ako je datoteka neuspjesno otvorena izbacujemo poruku koju smo napisali,
     //a ako je uspjesno otvorena datoteka program nastavlja sa radom
@@ -48,11 +53,7 @@ int rowCounter(char* fileName) {
         printf("file is not open!");
         return -1;
     }
-
     
-    //char buffer pohranjuje niz char-ova
-    //u ovom slucaju on moze maksimalno primit 1024 char-a jer je to maksimalni broj znakova u jednom redu
-    char buffer[MAX_LINE];
     while (fgets(buffer, MAX_LINE, filePointer)) {
         noRows++;
     }
@@ -65,7 +66,8 @@ int rowCounter(char* fileName) {
 
 //funkcija koja iscitava informacije o studentima iz datotete "students.txt" i pohranjuje ih u strukturu Student
 void readStudents(Student* stud, int noStud, char* fileName) {
-    FILE* filePointer = fopen(fileName, "r");
+    FILE* filePointer = NULL;
+    filePointer = fopen(fileName, "r");
 
     if (!filePointer) {
         printf("File is not open!");
