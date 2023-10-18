@@ -16,6 +16,9 @@ Napomena: Svaki redak datoteke sadrži ime i prezime studenta, te broj bodova na
 relatvan_br_bodova = br_bodova / max_br_bodova * 100
 */
 
+#define SUCCESS (0)
+#define EXIT (-1)
+
 #define MAX_SIZE (50)
 #define MAX_LINE (1024)
 #define MAX_POINTS (50)
@@ -51,7 +54,7 @@ int rowCounter(char* fileName) {
     // return -1 = exit not successful
     if (!filePointer) {
         printf("file is not open!");
-        return -1;
+        return EXIT;
     }
     
     while (fgets(buffer, MAX_LINE, filePointer)) {
@@ -98,15 +101,20 @@ int main() {
 
     //ako u datoteci nema studenata program se nece izvrsiti
     if (noStudents < 0) {
-        return -1;
+        return EXIT;
     }
 
     //dinamicki alociramo memoriju za studente
     Student* stud = NULL;
     stud = (Student*)malloc(noStudents * sizeof(Student));
 
+    if (!stud) {
+        printf("Neuspjesna alokacija memorije!\n");
+        return NULL;
+    }
+
     readStudents(stud, noStudents, filePointer);
     printStudents(stud, noStudents);
 
-    return 0;
+    return SUCCESS;
 }
