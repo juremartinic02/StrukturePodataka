@@ -89,6 +89,8 @@ void printStudents(Student* stud, int noStud) {
 }
 
 int main() {
+
+    //stvaramo pokazivac na string "students.txt" u memoriji
     char* filePointer = "students.txt";
     int noStudents = rowCounter(filePointer);
 
