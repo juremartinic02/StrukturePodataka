@@ -12,12 +12,15 @@ relatvan_br_bodova = br_bodova / max_br_bodova * 100
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h> 
+#include <malloc.h>
 
 // zakomentiras sa ctrl + K + C
 //odkomentiras sa ctrl + K + U
 
-#define SUCCESS (0)
-#define EXIT (-1)
+//digresija profesora: "Steknite naviku definirati return-ove jer ce te u vecim programima imati puno koda u kojem morate znati sto vracate korisniku"
+#define PROGRAM_SUCCESS (0)
+#define FILE_DIDNT_OPEN (-1)
 
 #define MAX_SIZE (50)
 #define MAX_LINE (1024)
@@ -54,7 +57,7 @@ int rowCounter(char* fileName) {
     // return -1 = exit not successful
     if (!filePointer) {
         printf("file is not open!");
-        return EXIT;
+        return FILE_DIDNT_OPEN;
     }
     
     while (fgets(buffer, MAX_LINE, filePointer)) {
@@ -101,7 +104,7 @@ int main() {
 
     //ako u datoteci nema studenata program se nece izvrsiti
     if (noStudents < 0) {
-        return EXIT;
+        return PROGRAM_SUCCESS;
     }
 
     //dinamicki alociramo memoriju za studente
@@ -116,5 +119,5 @@ int main() {
     readStudents(stud, noStudents, filePointer);
     printStudents(stud, noStudents);
 
-    return SUCCESS;
+    return PROGRAM_SUCCESS;
 }
