@@ -18,7 +18,9 @@ relatvan_br_bodova = br_bodova / max_br_bodova * 100
 
 //digresija profesora: "Steknite naviku definirati return-ove jer ce te u vecim programima imati puno koda u kojem morate znati sto vracate korisniku"
 #define PROGRAM_SUCCESS (0)
+#define EXIT_PROGRAM (-1)
 #define FILE_DIDNT_OPEN (-1)
+
 
 #define MAX_SIZE (50)
 #define MAX_LINE (1024)
@@ -30,10 +32,42 @@ typedef struct _student {
     double points;
 } Student;
 
+int rowCounter(char* fileName);
+void readStudents(Student* stud, int noStud, char* fileName);
+void printStudents(Student* stud, int noStud);
+Student* allocateMemory(int noRows);
+
+int main() {
+
+    Student* stud = NULL;
+
+    //stvaramo pokazivac na string "students.txt" u memoriji
+    char* filePointer = "students.txt";
+    int noStudents = rowCounter(filePointer);
+
+
+    //ako u datoteci nema studenata program se nece izvrsiti
+    if (noStudents < 0) {
+        return EXIT_PROGRAM;
+    }
+
+    if (noStudents > 0)
+    {
+        stud = allocateMemory(noStudents);
+        readStudents(stud, noStudents, filePointer);
+        printStudents(stud, noStudents);
+
+        //oslobadja prethodno dinamicki alociranu memoriju
+        free(stud);
+    }
+
+    return PROGRAM_SUCCESS;
+}
+
 //no = number of
 //inicializiraj sve varijable koje napises u kodu
 //funckija koja sluzi za brojanje redova u file-u "students.txt"
-int rowCounter() {
+int rowCounter(char* fileName) {
     int noRows = 0;
 
     //char buffer pohranjuje niz char-ova
@@ -47,7 +81,7 @@ int rowCounter() {
     // a - append
 
     FILE* filePointer = NULL;
-    filePointer = fopen("students.txt", "r");
+    filePointer = fopen(fileName, "r");
 
     //!filePointer, tj. negacijom filePointera ako je datoteka neuspjesno otvorena izbacujemo poruku koju smo napisali,
     //a ako je uspjesno otvorena datoteka program nastavlja sa radom
@@ -95,28 +129,15 @@ void printStudents(Student* stud, int noStud) {
     }
 }
 
-int main() {
-
-    //stvaramo pokazivac na string "students.txt" u memoriji
-    char* filePointer = "students.txt";
-    int noStudents = rowCounter(filePointer);
-
-    //ako u datoteci nema studenata program se nece izvrsiti
-    if (noStudents < 0) {
-        return PROGRAM_SUCCESS;
-    }
-
-    //dinamicki alociramo memoriju za studente
+//dinamicki alocira memoriju
+Student* allocateMemory(int noRows)
+{
+    FILE* filePointer = NULL;
     Student* stud = NULL;
-    stud = (Student*)malloc(noStudents * sizeof(Student));
+    stud = (Student*)malloc(noRows * sizeof(Student));
 
     if (!stud) {
-        printf("Neuspjesna alokacija memorije!\n");
+        printf("Can't allocate memory!\n");
         return NULL;
     }
-
-    readStudents(stud, noStudents, filePointer);
-    printStudents(stud, noStudents);
-
-    return PROGRAM_SUCCESS;
 }
