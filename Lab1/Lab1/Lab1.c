@@ -12,8 +12,6 @@ relatvan_br_bodova = br_bodova / max_br_bodova * 100
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h> 
-#include <malloc.h>
 
 // zakomentiras sa ctrl + K + C
 //odkomentiras sa ctrl + K + U
@@ -34,14 +32,14 @@ typedef struct _student {
 
 //no = number of
 //inicializiraj sve varijable koje napises u kodu
-
 //funckija koja sluzi za brojanje redova u file-u "students.txt"
-int rowCounter(char* fileName) {
+int rowCounter() {
     int noRows = 0;
 
     //char buffer pohranjuje niz char-ova
     //u ovom slucaju on moze maksimalno primit 1024 char-a jer je to maksimalni broj znakova u jednom redu
-    char buffer[MAX_LINE];
+    //inicijaliziraj svaku varijablu
+    char buffer[MAX_LINE] = { 0 };
 
     //ako se file ne nalazi u folderu ka i solution moras napisat cijeli path od txt file-a
     // r - read file,
@@ -49,14 +47,14 @@ int rowCounter(char* fileName) {
     // a - append
 
     FILE* filePointer = NULL;
-    filePointer = fopen(fileName, "r");
+    filePointer = fopen("students.txt", "r");
 
     //!filePointer, tj. negacijom filePointera ako je datoteka neuspjesno otvorena izbacujemo poruku koju smo napisali,
     //a ako je uspjesno otvorena datoteka program nastavlja sa radom
     // return 0 = exit success
     // return -1 = exit not successful
     if (!filePointer) {
-        printf("file is not open!");
+        printf("Failed to open file!\n");
         return FILE_DIDNT_OPEN;
     }
     
@@ -72,6 +70,7 @@ int rowCounter(char* fileName) {
 
 //funkcija koja iscitava informacije o studentima iz datotete "students.txt" i pohranjuje ih u strukturu Student
 void readStudents(Student* stud, int noStud, char* fileName) {
+    int i = 0;
     FILE* filePointer = NULL;
     filePointer = fopen(fileName, "r");
 
@@ -80,7 +79,7 @@ void readStudents(Student* stud, int noStud, char* fileName) {
         return;
     }
 
-    for (int i = 0; i < noStud; i++) {
+    for (i = 0; i < noStud; i++) {
         fscanf(filePointer, "%s %s %lf\n", (stud + i)->name, (stud + i)->surname, &((stud + i)->points));
     }
 
