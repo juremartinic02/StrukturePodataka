@@ -4,130 +4,294 @@ b.ispisuje listu,
 c.dinamički dodaje novi element na kraj liste,
 d.pronalazi element u listi(po prezimenu),
 e.briše određeni element iz liste,
-u zadatku se ne smiju koristiti globalne varijable.*/#define _CRT_SECURE_NO_WARNINGS#include <stdio.h>#include <stdlib.h>#include <string.h>#include <malloc.h>#define MAX_LINE (50)#define PROGRAM_SUCCESS (0)typedef struct person* Position;typedef struct person{	char name[MAX_LINE];	char surname[MAX_LINE];	int birthyear;	Position next;} Person;void Add_Element(Position P) {
+u zadatku se ne smiju koristiti globalne varijable.*/
 
-	Position q;
+#define _CRT_SECURE_NO_WARNINGS
 
-	q = (Position)malloc(sizeof(struct person));
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-	printf("\nInsert information about the person: ");
-	scanf(" %s %s %d", q->name, q->surname, &q->birthyear);
+#define EXIT_SUCCESS (0)
+#define EXIT_PROGRAM (-1)
 
-	q->next = P->next;
-	P->next = q;
-}void PrintList(Position P) {
+#define MAX_LENGTH (50)
 
-	if (NULL == P)
-		printf("\nThe list is empty!\n");
 
-	else {
+struct _Person;
 
-		printf("\nList: \n");
+//Position se koristi za pohranu adrese strukture _Person
+typedef struct _Person* Position;
 
-		while (P != NULL) {
+//deklaracija strukture Person
+typedef struct _Person
+{
+	char name[MAX_LENGTH];
+	char surname[MAX_LENGTH];
+	int birthYear;
+	Position next;
+} Person;
 
-			printf("\n\t %s %s %d", P->name, P->surname, P->birthyear);
-			P = P->next;
+//funkcija appendList dodaje novu osobu na pocetak vezane liste
+int addToList(Position head);
 
-		}
-	}
-}Position FindLast(Position P) {
+//funkcija addToEndOfList dodaje novu osobu na kraj vezane liste
+int addToEndOfList(Position head);
 
-	while (NULL != P)
-		P = P->next;
+//funckija printList ispisuje sve osobe u novonastaloj vezanoj listi
+void printList(Position first);
 
-	return P;
-}Position FindPrevious(Position P) {
+//funckija findPerson pretrazuje osobu po prezimenu u vezanoj listi
+int findPerson(Position head);
 
-	char lastnm[50] = { 0 };
+//funkcija deletePerson brise osobu iz vezane liste,
+//tako sto upisujemo prezime osobe koju zelimo izbrisati
+int deletePerson(Position head);
 
-	if (NULL == P->next)
-		P = NULL;
+//funckija cratePerson inicijalizira novu strukturu Person i sva njezina polja
+Position createPerson();
 
-	else {
+//
+Position findLast(Position head);
 
-		printf("Please insert persons surname: ");
-		scanf(" %s", lastnm);
+// funkcija printPerson ispisuje podatke o zeljenoj osobi
+//podaci koje ispisuje su: ime, prezime i adresa
+int printPerson(Position person);
 
-		while (strcmp(P->next->surname, lastnm) != 0 && P->next->next != NULL)
-			P = P->next;
+//funckija menu pruza korisniku izbornik iz kojeg moze birati sto zeli napraviti sa novonastalom listom
+int menu(Position head);
 
-		while (strcmp(P->next->surname, lastnm) != 0)
-			P = NULL;
-	}
+//funkcija wishedSurname uzima prezime koje je korisnik upisao i koristi ga u funkcijama koje brisu ili pronalaze osobu iz vezane liste
+char* wishedSurname();
 
-	return P;
-}Position Find(Position P) {
-
-	char lastnm[50] = { 0 };
-
-	printf("\nPlease insert persons, who you want to find, surname: ");
-	scanf(" %s", lastnm);
-
-	while (P != NULL && strcmp(P->surname, lastnm) != 0)
-		P = P->next;
-
-	return P;
-}
-
-void Delete(Position P) {
-
-	Position prev;
-
-	prev = FindPrevious(P);
-
-	if (NULL != prev) {
-
-		P = prev->next;
-		prev->next = P->next;
-
-		printf("\nPerson: %s %s %d is deleted", P->name, P->surname, P->birthyear);
-
-		free(P);
-	}
-	else
-		printf("\nThe person do not exist in the list.");
-
-}int main(int argc, char** argv) {
-
-	char Lastname[MAX_LINE] = { 0 };
-	struct person* q;
-	int NumofFuc;
-
-	Person head = {
-		.name = { 0 },
-		.surname = { 0 },
-		.birthyear = 0,
-		.next = NULL
+//funkcija main za argumente uzima argc(argument count) i argv(argument vector)
+//argc predstavlja broj stvari koje smo unjeli u terminalu (u ovom slucaju to su osobe koje tvore vezanu listu)
+//argv je niz koji sprema stvari koje smo unjeli kao string
+int main(int argc, char** argv)
+{
+	//inicijaliziranje "dummy" elementa koji pokazuje na pocetak vezane liste 
+	Person Head = { 
+		.next = NULL, 
+		.name = {0},
+		.surname = {0}, 
+		.birthYear = 0
 	};
 
-	printf("Please insert number of function which you what to execute: \n1.Add person\n2.Print list\n3.Add person on the end of the list\n4.Find person by lastname\n5.Delete person\nAnswear: ");
-	scanf("%d", &NumofFuc);
+	//funkciji menu prosljedjujemo adresu Head-a
+	menu(&Head);
 
-	if (NumofFuc == 1)
-		Add_Element(&head);
+	return EXIT_SUCCESS;
+}
 
-	else if (NumofFuc == 2)
-		PrintList(&head);
+//Position nam predstavlja referencu na objekt tipa struct _Person
+//to znaci kada pozovemo tu fukciju ona ce vratiti referencu na na novo kreiranu osobu
+Position createPerson()
+{
+	Position newPerson = NULL;
+	char name[MAX_LENGTH] = { 0 };
+	char surname[MAX_LENGTH] = { 0 };
+	int birthYear = 0;
 
-	else if (NumofFuc == 3) {
-		q = FindLast(&head);
-		Add_Element(q);
+	//dinamicka alokacija memorije za novu osobu
+	newPerson = (Position)malloc(sizeof(Person));
+	if (!newPerson)
+	{
+		//perror je naredba koja ispisuje poruku u stderr (standar error stream), cija je namjena da ispise error korisniku
+		//printf ne bi koristili u ovom slucaju jer se on koristi za opcu izlaznu poruku korisniku
+		//razlozi zbog kojeg koristimo u ovom slucaju perror, a ne printf je taj sto perror odma ispisuje pogresku korisniku,
+		//a i nama kao programerima sto nam je korisno kod debuggiranja koda
+		perror("Failed to allocate memory!\n");
+		return NULL;
 	}
 
-	else if (NumofFuc == 4) {
-		q = Find(head.next);
-		if (NULL == q)
-			printf("\n The person does not exist!");
+	printf("Enter name:\n");
+	scanf(" %s", name);
+	printf("Enter surname:\n");
+	scanf(" %s", surname);
+	printf("Enter birth year:\n");
+	scanf(" %d", &birthYear);
+
+	//strcpy funkcija kopira sadrzaj jednog stringa u drugi string
+	strcpy(newPerson->name, name);
+	strcpy(newPerson->surname, surname);
+	newPerson->birthYear = birthYear;
+
+	return newPerson;
+}
+
+int addToList(Position head)
+{
+	Position newPerson = NULL;
+
+	newPerson = createPerson();
+
+	//ako pokazivac newPerson != NULL stvara se novi cvor u vezanoj listi koji poprima vrijednost Head
+	//cvor kojeg je prije toga okupirao Head sada postaje cvor koji zauzima newPerson 
+	if (newPerson)
+	{
+		newPerson->next = head->next;
+		head->next = newPerson;
+	}
+
+	return EXIT_SUCCESS;
+}
+
+//funkcija findLast prolazi po vezanoj listi dok ne dodje do cvora koji je jednak NULL
+//kada naidje na takav cvor zna da je dosao do kraja liste
+//to mozemo iskroisti kako bi identificirali zadnji element vezane liste
+Position findLast(Position head)
+{
+	while (head->next != NULL)
+	{
+		head = head->next;
+	}
+
+	return head;
+}
+
+
+int addToEndOfList(Position head)
+{
+	Position newPerson = NULL;
+
+	newPerson = createPerson();
+
+	//head cvora postavljamo na zadnjeg clana vezane liste pomocu funkcije findLast
+	//za postavljanje nove osobe kao head cvora koristimo isti postupak kao i kod addToList funckije
+	if (newPerson)
+	{
+		head = findLast(head);
+		newPerson->next = head->next;
+		head->next = newPerson;
+	}
+
+	return EXIT_SUCCESS;
+}
+
+void printList(Position first) {
+	if (first == NULL) {
+		printf("Empty list!\n");
+		return;
+	}
+
+	while (first != NULL) {
+		printf("Name: %s\t Surname: %s\t Birth year: %d\t\n", first->name, first->surname, first->birthYear);
+		first = first->next;
+	}
+}
+
+int findPerson(Position head)
+{
+	if (head->next)
+	{
+		while (head->next && strcmp(head->next->surname, wishedSurname()) != 0)
+		{
+			head = head->next;
+		}
+		if (head->next)
+		{
+			printPerson(head->next);
+		}
 		else
-			printf("\n\tPerson is: %s %s, %d", q->name, q->surname, q->birthyear);
+		{
+			perror("Can't find person with that surname!\n");
+			return EXIT_PROGRAM;
+		}
+	}
+	else
+	{
+		perror("Empty list!\n");
 	}
 
-	else if (NumofFuc == 5)
-		Delete(&head);
+	return EXIT_SUCCESS;
+}
+int deletePerson(Position head)
+{
+	if (head->next)
+	{
+		Position previous = NULL;
 
+		//strcmp(string compare) usporedjuje postojece prezime sa onim koje je korisnik upisao
+		//ovisno o tocnosti program izvrsava zadane naredbe
+		while (head->next && strcmp(head->surname, wishedSurname()) != 0)
+		{
+			previous = head;
+			head = head->next;
+		}
+		if (previous->next && strcmp(head->surname, wishedSurname()) == 0)
+		{
+			printPerson(head);
+			previous->next = head->next;
+			free(head);
+			printf("Person deleted!\n");
+		}
+		else
+		{
+			perror("Can't find person with that surname!\n");
+			return EXIT_PROGRAM;
+		}
+	}
 	else
-		printf("\nWrong input!\n");
+	{
+		perror("Empty list!\n");
+	}
 
-	return PROGRAM_SUCCESS;
-}
+	return EXIT_SUCCESS;
+}
+
+int printPerson(Position person)
+{
+	printf("Name: %s, surname: %s, birth year: %d, adress: %p\n",
+		person->name, person->surname, person->birthYear, person);
+
+	return EXIT_SUCCESS;
+}
+
+int menu(Position head) {
+	int choice = 0;
+
+	while (1) {
+		printf("Choose an option:\n");
+		printf("1. Add new person to list\n");
+		printf("2. Add new person to end of list\n");
+		printf("3. Print list\n");
+		printf("4. Search for person\n");
+		printf("5. Delete person\n");
+		printf("6. Exit\n");
+
+		printf("Your choice is: ");
+		scanf("%d", &choice);
+
+		switch (choice) {
+		case 1:
+			addToList(head);
+			break;
+		case 2:
+			addToEndOfList(head);
+			break;
+		case 3:
+			printList(head->next);
+			break;
+		case 4:
+			findPerson(head);
+			break;
+		case 5:
+			deletePerson(head);
+			break;
+		case 6:
+			return EXIT_SUCCESS;
+		default:
+			printf("Invalid choice!\n");
+		}
+	}
+	return EXIT_SUCCESS;
+}
+
+char* wishedSurname()
+{
+	char surname[MAX_LENGTH] = { 0 };
+	printf("Enter surname of the wanted person:\n");
+	scanf(" %s", surname);
+
+	return surname;
+}
