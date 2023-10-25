@@ -168,6 +168,7 @@ int addToEndOfList(Position head)
 	return EXIT_SUCCESS;
 }
 
+//funkcija koja ispisuje elemente vezane liste ukoliko ona postoji
 void printList(Position first) {
 	if (first == NULL) {
 		printf("Empty list!\n");
@@ -184,6 +185,8 @@ int findPerson(Position head)
 {
 	if (head->next)
 	{
+		//strcmp(string compare) usporedjuje postojece prezime sa onim koje je korisnik upisao
+		//ovisno o tocnosti program izvrsava zadane naredbe
 		while (head->next && strcmp(head->next->surname, wishedSurname()) != 0)
 		{
 			head = head->next;
@@ -211,8 +214,6 @@ int deletePerson(Position head)
 	{
 		Position previous = NULL;
 
-		//strcmp(string compare) usporedjuje postojece prezime sa onim koje je korisnik upisao
-		//ovisno o tocnosti program izvrsava zadane naredbe
 		while (head->next && strcmp(head->surname, wishedSurname()) != 0)
 		{
 			previous = head;
