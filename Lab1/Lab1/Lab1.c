@@ -26,15 +26,24 @@ relatvan_br_bodova = br_bodova / max_br_bodova * 100
 #define MAX_LINE (1024)
 #define MAX_POINTS (50)
 
+//inicijaliziranje strukture podataka _student
 typedef struct _student {
     char name[MAX_SIZE];
     char surname[MAX_SIZE];
     double points;
 } Student;
 
+//funckija koja broji redove u tekstualnoj datoteci
+//broj redova odgovara broju studenata u toj datoteci
 int rowCounter(char* fileName);
+
+//funckija koja cita podatke o studentima iz tekstualne datoteke
 void readStudents(Student* stud, int noStud, char* fileName);
+
+//funckija koja ispisuje studente sa njihovim ostvarenim apsolutnim i relativnim brojem bodova
 void printStudents(Student* stud, int noStud);
+
+//dinamicka alokacija memorije za studente
 Student* allocateMemory(int noRows);
 
 int main() {
@@ -88,7 +97,7 @@ int rowCounter(char* fileName) {
     // return 0 = exit success
     // return -1 = exit not successful
     if (!filePointer) {
-        printf("Failed to open file!\n");
+        perror("Failed to open file!\n");
         return FILE_DIDNT_OPEN;
     }
     
@@ -109,7 +118,7 @@ void readStudents(Student* stud, int noStud, char* fileName) {
     filePointer = fopen(fileName, "r");
 
     if (!filePointer) {
-        printf("File is not open!");
+        perror("File is not open!");
         return;
     }
 
@@ -137,7 +146,7 @@ Student* allocateMemory(int noRows)
     stud = (Student*)malloc(noRows * sizeof(Student));
 
     if (!stud) {
-        printf("Can't allocate memory!\n");
+        perror("Can't allocate memory!\n");
         return NULL;
     }
 }
