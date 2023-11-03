@@ -1,0 +1,7 @@
+﻿  Lab3.c
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab3\Lab3\Lab3.c(134,11): warning C4047: '=': 'Position' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab3\Lab3\Lab3.c(154,11): warning C4047: '=': 'Position' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab3\Lab3\Lab3.c(377,3): warning C4047: 'return': 'Position' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab3\Lab3\Lab3.c(390,2): warning C4047: 'return': 'Position' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab3\Lab3\Lab3.c(453): warning C4172: returning address of local variable or temporary: surname
+  Lab3.vcxproj -> C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab3\x64\Debug\Lab3.exe
