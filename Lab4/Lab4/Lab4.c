@@ -31,20 +31,20 @@ int readFile(Position headPolynome1, Position headPolynome2, char* fileName);
 //funckija printPolynome ispisuje sta???  
 int printPolynome(char* polynomeName, Position first);
 
-//fukcija addPolynome zbraja polinome po pravilu o zbrajanju polinoma
-int addPolynome(Position resultHead, Position firstElementPolynome1, Position firstElementPolynome2);
+//fukcija addPolynomes zbraja polinome po pravilu o zbrajanju polinoma
+int addPolynomes(Position resultHead, Position firstElementPolynome1, Position firstElementPolynome2);
 
-//fukcija multiplyPolynome mnozi polinome po pravilu o mnozenju polinoma
-int multiplyPolynome(Position resultHead, Position headPoly1, Position headPoly2);
+//fukcija multiplyPolynomes mnozi polinome po pravilu o mnozenju polinoma
+int multiplyPolynomes(Position resultHead, Position headPoly1, Position headPoly2);
 
 //funckija freeMemory oslobadja iskoristenu memoriju koju su zauzeli inicijalizirani head-ovi vezanih lista
 int freeMemory(Position head);
 
-//funckija parseStringIntoList pretvara procitane strinogove iz datoteke u liste
-int parseStringIntoList(Position head, char* buffer);
+//funckija changeStringIntoList pretvara procitane strinogove iz datoteke u liste
+int changeStringIntoList(Position head, char* buffer);
 
 //funkcija createElement inicijalizira novu strukturu i dinamicki alocira potrebnu memoriju
-Position createElement(int coefficient, int exponent);
+Position createNewElement(int coefficient, int exponent);
 
 //funkcija insertSorted provjerava da li su polinomi sortirani po pravilu o sortiranju polinoma pa ih ubacuje u funkciju multiplyPolynome
 int insertSorted(Position head, Position newElement);
@@ -103,8 +103,8 @@ int main()
 		printPolynome("First polynome: ", headPolynome1.next);
 		printPolynome("Second polynome: ", headPolynome2.next);
 
-		addPolynome(&headPolynomeAdd, headPolynome1.next, headPolynome2.next);
-		multiplyPolynome(&headPolynomeMultiplication, headPolynome1.next, headPolynome2.next);
+		addPolynomes(&headPolynomeAdd, headPolynome1.next, headPolynome2.next);
+		multiplyPolynomes(&headPolynomeMultiplication, headPolynome1.next, headPolynome2.next);
 
 		printPolynome("Added polynomes: ", headPolynomeAdd.next);
 		printPolynome("Multiplied polynomes: ", headPolynomeMultiplication.next);
@@ -133,13 +133,13 @@ int readFile(Position headPolynome1, Position headPolynome2, char* fileName) {
 	}
 
 	fgets(buffer, MAX_LINE, filePointer);
-	status = parseStringIntoList(headPolynome1, buffer);
+	status = changeStringIntoList(headPolynome1, buffer);
 	if (status != EXIT_SUCCESS) {
 		return EXIT_FAILURE;
 	}
 
 	fgets(buffer, MAX_LINE, filePointer);
-	status = parseStringIntoList(headPolynome2, buffer);
+	status = changeStringIntoList(headPolynome2, buffer);
 	if (status != EXIT_SUCCESS) {
 		return EXIT_FAILURE;
 	}
@@ -205,7 +205,7 @@ int printPolynome(char* polynomeName, Position first) {
 	return EXIT_SUCCESS;
 }
 
-int addPolynome(Position resultHead, Position firstElementPoly1, Position firstElementPoly2) {
+int addPolynomes(Position resultHead, Position firstElementPoly1, Position firstElementPoly2) {
 	Position currentPoly1 = firstElementPoly1;
 	Position currentPoly2 = firstElementPoly2;
 	Position currentResult = resultHead;
@@ -246,13 +246,13 @@ int addPolynome(Position resultHead, Position firstElementPoly1, Position firstE
 	return EXIT_SUCCESS;
 }
 
-int multiplyPolynome(Position resultHead, Position firstElementPoly1, Position firstElementPoly2){
+int multiplyPolynomes(Position resultHead, Position firstElementPoly1, Position firstElementPoly2){
 
 	if (firstElementPoly1 == NULL || firstElementPoly2 == NULL)
 		return EMPTY_LISTS;
 	for (Position currentPoly1 = firstElementPoly1; currentPoly1 != NULL; currentPoly1 = currentPoly1->next) {
 		for (Position currentPoly2 = firstElementPoly2; currentPoly2 != NULL; currentPoly2 = currentPoly2->next) {
-			Position newElement = createElement(currentPoly1->coefficient * currentPoly2->coefficient, currentPoly1->exponent + currentPoly2->exponent);
+			Position newElement = createNewElement(currentPoly1->coefficient * currentPoly2->coefficient, currentPoly1->exponent + currentPoly2->exponent);
 			if (!newElement) {
 				return EXIT_FAILURE;
 			}
@@ -275,7 +275,7 @@ int freeMemory(Position head)
 	return EXIT_SUCCESS;
 }
 
-int parseStringIntoList(Position head, char* buffer)
+int changeStringIntoList(Position head, char* buffer)
 {
 	char* currentBuffer = buffer;
 	int coefficient = 0;
@@ -291,7 +291,7 @@ int parseStringIntoList(Position head, char* buffer)
 			return EXIT_FAILURE;
 		}
 
-		newElement = createElement(coefficient, exponent);
+		newElement = createNewElement(coefficient, exponent);
 		if (!newElement) {
 			return EXIT_FAILURE;
 		}
@@ -303,7 +303,7 @@ int parseStringIntoList(Position head, char* buffer)
 	return EXIT_SUCCESS;
 }
 
-Position createElement(int coefficient, int exponent) {
+Position createNewElement(int coefficient, int exponent) {
 	Position element = NULL;
 
 	element = (Position)malloc(sizeof(Element));
@@ -371,7 +371,7 @@ int deleteAfter(Position previous) {
 }
 
 int createAndInsertAfter(int coefficient, int exponent, Position current) {
-	Position newElement = createElement(coefficient, exponent);
+	Position newElement = createNewElement(coefficient, exponent);
 	if (!newElement) {
 		return EXIT_FAILURE;
 	}
