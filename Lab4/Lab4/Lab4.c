@@ -211,7 +211,6 @@ int addPolynome(Position resultHead, Position firstElementPoly1, Position firstE
 	Position currentResult = resultHead;
 	Position remainingPoly = NULL;
 
-	// untill the end of one (or both) polynomes
 	while (currentPoly1 != NULL && currentPoly2 != NULL) {
 		if (currentPoly1->exponent == currentPoly2->exponent) {
 			createAndInsertAfter(currentPoly1->coefficient + currentPoly2->coefficient, currentPoly1->exponent, currentResult);
@@ -340,7 +339,6 @@ int mergeAfter(Position current, Position newElement) {
 	else 
 	{
 		int resultCoefficient = current->next->coefficient + newElement->coefficient;
-		// if coeff sum is 0 that element dissapears
 		if (resultCoefficient == 0)
 		{
 			deleteAfter(current);
