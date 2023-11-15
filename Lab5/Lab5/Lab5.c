@@ -194,6 +194,7 @@ int printStack(Position first) {
 int pop(Position head, double* result) {
     Position toDelete = NULL;
 
+    // provjeravamo da li je nakon zadnjeg pop-a ostao element u stack-u
     toDelete = head->next;
     if (!toDelete) {
         printf("Stack is empty! Program has nothing to pop!\n");
@@ -222,7 +223,7 @@ int popAndPerformOperation(Position head, char operation, double* result) {
     if (status2 != EXIT_SUCCESS) {
         return EXIT_FAILURE;
     }
-
+    // ovisno o znaku na koji program naleti, ta operacija ce se izvrsiti nad elementom koji smo pop-ali
     switch (operation) {
     case '+':
         *result = operand2 + operand1;
