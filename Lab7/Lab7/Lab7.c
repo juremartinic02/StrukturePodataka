@@ -10,13 +10,13 @@ korištenje DOS naredbi: 1- "md", 2 - "cd dir", 3 - "cd..", 4 - "dir" i 5 – iz
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_NAME_LENGTH 50
+#define MAX_LENGTH (50)
 
 //inicijalizacija strukture direktorija
 struct _directory;
 typedef struct _directory* PositionDirectory;
 typedef struct _directory {
-    char name[MAX_NAME_LENGTH];
+    char name[MAX_LENGTH];
     PositionDirectory subDirectories;
     PositionDirectory next;
 } Directory;
@@ -33,13 +33,13 @@ typedef struct _levelStack {
 // funckije pomocu kojih manipuliramo direktorij
 
 // funckija createDirectory kreira novi direktorij
-PositionDirectory createDirectory(char name[MAX_NAME_LENGTH]);
+PositionDirectory createDirectory(char name[MAX_LENGTH]);
 
 // funckija createSubdirectory kreira novi poddirektorij
-PositionDirectory createSubdirectory(char name[MAX_NAME_LENGTH], PositionDirectory currentDirectory);
+PositionDirectory createSubdirectory(char name[MAX_LENGTH], PositionDirectory currentDirectory);
 
 // funckija changeDirectory mijenja direktorij ovisno o tome koje mdirektoriju zelimo pristupiti
-PositionDirectory changeDirectory(char name[MAX_NAME_LENGTH], PositionDirectory currentDirectory);
+PositionDirectory changeDirectory(char name[MAX_LENGTH], PositionDirectory currentDirectory);
 
 //----------------------------------------------------------------------------------------------------------
 
@@ -90,13 +90,13 @@ int main() {
         scanf("%s", choice);
 
         if (strcmp(choice, "1") == 0) {
-            char directoryName[MAX_NAME_LENGTH];
+            char directoryName[MAX_LENGTH];
             printf("\033[0;32mEnter directory name: \033[0m");
             scanf("%s", directoryName);
             createSubdirectory(directoryName, currentDirectory);
         }
         else if (strcmp(choice, "2") == 0) {
-            char directoryName[MAX_NAME_LENGTH];
+            char directoryName[MAX_LENGTH];
             printf("\033[0;32mEnter directory name: \033[0m");
             scanf("%s", directoryName);
             currentDirectory = changeDirectory(directoryName, currentDirectory);
@@ -129,7 +129,7 @@ int main() {
     return 0;
 }
 
-PositionDirectory createDirectory(char name[MAX_NAME_LENGTH]) {
+PositionDirectory createDirectory(char name[MAX_LENGTH]) {
     PositionDirectory newDirectory = NULL;
     newDirectory = (PositionDirectory)malloc(sizeof(Directory));
     if (!newDirectory) {
@@ -142,7 +142,7 @@ PositionDirectory createDirectory(char name[MAX_NAME_LENGTH]) {
     return newDirectory;
 }
 
-PositionDirectory createSubdirectory(char name[MAX_NAME_LENGTH], PositionDirectory currentDirectory) {
+PositionDirectory createSubdirectory(char name[MAX_LENGTH], PositionDirectory currentDirectory) {
     PositionDirectory newDirectory = NULL;
     newDirectory = createDirectory(name);
     if (!newDirectory) {
@@ -154,7 +154,7 @@ PositionDirectory createSubdirectory(char name[MAX_NAME_LENGTH], PositionDirecto
     return newDirectory;
 }
 
-PositionDirectory changeDirectory(char name[MAX_NAME_LENGTH], PositionDirectory currentDirectory) {
+PositionDirectory changeDirectory(char name[MAX_LENGTH], PositionDirectory currentDirectory) {
     PositionDirectory subdirectory = currentDirectory->subDirectories;
     while (subdirectory != NULL) {
         if (strcmp(subdirectory->name, name) == 0) {
@@ -185,7 +185,7 @@ PositionDirectory pop(PositionLevelStack headLevelStack) {
 
     toDelete = headLevelStack->next;
     if (!toDelete) {
-        printf("Stack is empty! Nothing to pop!\n");
+        printf("Stack is empty!\n");
         return NULL;
     }
 
