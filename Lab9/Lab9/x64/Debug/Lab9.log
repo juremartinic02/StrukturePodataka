@@ -1,0 +1,3 @@
+﻿  Lab9.c
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab9\Lab9\Lab9.c(65,11): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Lab9.vcxproj -> C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab9\x64\Debug\Lab9.exe
