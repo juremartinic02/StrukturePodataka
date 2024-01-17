@@ -1,0 +1,11 @@
+﻿  Lab10a.c
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10a\Lab10a\Lab10a.c(93,3): warning C4047: 'return': 'int' differs in levels of indirection from 'CityTreePosition'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10a\Lab10a\Lab10a.c(96,17): warning C4047: '=': 'CityTreePosition' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10a\Lab10a\Lab10a.c(99,18): warning C4047: '=': 'CityTreePosition' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10a\Lab10a\Lab10a.c(107,19): warning C4047: '=': 'CityTreePosition' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10a\Lab10a\Lab10a.c(110,18): warning C4047: '=': 'CityTreePosition' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10a\Lab10a\Lab10a.c(119,2): warning C4047: 'return': 'int' differs in levels of indirection from 'CityTreePosition'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10a\Lab10a\Lab10a.c(146,28): warning C4047: '=': 'CityTreePosition' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10a\Lab10a\Lab10a.c(205,9): warning C4047: '=': 'CityTreePosition' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10a\Lab10a\Lab10a.c(215,2): warning C4047: 'return': 'int' differs in levels of indirection from 'CityTreePosition'
+  Lab10a.vcxproj -> C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10a\x64\Debug\Lab10a.exe
