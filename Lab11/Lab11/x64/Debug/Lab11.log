@@ -1,0 +1,9 @@
+﻿  declarations.c
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab11\Lab11\declarations.c(103,45): warning C4133: 'function': incompatible types - from 'CityTreePosition' to 'CountryListPosition'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab11\Lab11\declarations.c(105,28): warning C4047: '=': 'CityTreePosition' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab11\Lab11\declarations.c(250,7): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Lab11.c
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab11\Lab11\Lab11.c(14,3): warning C4013: 'strcpy' undefined; assuming extern returning int
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab11\Lab11\Lab11.c(9,22): warning C4047: 'initializing': 'CountryListPosition' differs in levels of indirection from 'CountryListNode (*)[11]'
+  Generating Code...
+  Lab11.vcxproj -> C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab11\x64\Debug\Lab11.exe
