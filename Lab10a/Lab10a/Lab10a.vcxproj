@@ -130,10 +130,10 @@
     <ClCompile Include="Lab10a.c" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Belgija_gradovi.txt" />
+    <Text Include="belgija_gradovi.txt" />
     <Text Include="drzave.txt" />
-    <Text Include="Hrvatska_gradovi.txt" />
-    <Text Include="Njemacka_gradovi.txt" />
+    <Text Include="hrvatska_gradovi.txt" />
+    <Text Include="njemacka_gradovi.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

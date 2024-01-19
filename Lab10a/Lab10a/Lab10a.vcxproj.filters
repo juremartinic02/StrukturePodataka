@@ -20,17 +20,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Belgija_gradovi.txt">
-      <Filter>Source Files</Filter>
-    </Text>
-    <Text Include="Hrvatska_gradovi.txt">
-      <Filter>Source Files</Filter>
-    </Text>
-    <Text Include="Njemacka_gradovi.txt">
-      <Filter>Source Files</Filter>
-    </Text>
-    <Text Include="drzave.txt">
-      <Filter>Source Files</Filter>
-    </Text>
+    <Text Include="drzave.txt" />
+    <Text Include="belgija_gradovi.txt" />
+    <Text Include="hrvatska_gradovi.txt" />
+    <Text Include="njemacka_gradovi.txt" />
   </ItemGroup>
 </Project>

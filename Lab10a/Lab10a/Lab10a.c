@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #define MAX_LENGTH (128)
 #define MAX_LINE (1024)
@@ -27,10 +26,10 @@ typedef struct _CityTreeNode {
 
 int SortedInsertIntoList(CountryListPosition head, CountryListPosition newElement);
 CountryListPosition CreateNewCountryElement(char name[]);
-int InsertIntoTree(CityTreePosition current, CityTreePosition newElement);
+CityTreePosition InsertIntoTree(CityTreePosition current, CityTreePosition newElement);
 int ReadCountryFromFile(CountryListPosition head);
 CityTreePosition CreateNewCityElement(char name[], int population);
-int ReadCityFromFile(char fileName[]);
+CityTreePosition ReadCityFromFile(char fileName[]);
 int InorderPrint(CityTreePosition current);
 int PrintAll(CountryListPosition head);
 CountryListPosition FindCountry(CountryListPosition head, char selectedName[]);
@@ -87,7 +86,7 @@ CountryListPosition CreateNewCountryElement(char name[])
 	return newElement;
 }
 
-int InsertIntoTree(CityTreePosition current, CityTreePosition newElement)
+CityTreePosition InsertIntoTree(CityTreePosition current, CityTreePosition newElement)
 {
 	if (!current)
 		return newElement;
@@ -118,6 +117,7 @@ int InsertIntoTree(CityTreePosition current, CityTreePosition newElement)
 
 	return current;
 }
+
 
 int ReadCountryFromFile(CountryListPosition head)
 {
@@ -153,8 +153,6 @@ int ReadCountryFromFile(CountryListPosition head)
 		}
 	}
 	fclose(file);
-
-	free(buffer);
 	return EXIT_SUCCESS;
 }
 
@@ -177,7 +175,7 @@ CityTreePosition CreateNewCityElement(char name[], int population)
 	return newElement;
 }
 
-int ReadCityFromFile(char fileName[])
+CityTreePosition ReadCityFromFile(char fileName[])
 {
 	FILE* file = NULL;
 	char cityName[MAX_LENGTH] = { 0 };
@@ -218,12 +216,12 @@ int ReadCityFromFile(char fileName[])
 
 int InorderPrint(CityTreePosition current)
 {
-	if (!current)
-		return 0;
-
-	InorderPrint(current->left);
-	printf(" %s ", current->cityName);
-	InorderPrint(current->right);
+	if (current != NULL)
+	{
+		InorderPrint(current->left);
+		printf(" %s ", current->cityName);
+		InorderPrint(current->right);
+	}
 
 	return EXIT_SUCCESS;
 }
