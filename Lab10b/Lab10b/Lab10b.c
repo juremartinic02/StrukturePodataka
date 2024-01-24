@@ -26,10 +26,10 @@ typedef struct _CityListNode {
 
 int SortedInsertIntoList(CityListPosition head, CityListPosition newElement);
 CountryTreePosition CreateNewCountryElement(char name[]);
-int InsertIntoTree(CountryTreePosition current, CountryTreePosition newElement);
+CountryTreePosition InsertIntoTree(CountryTreePosition current, CountryTreePosition newElement);
 CountryTreePosition ReadCountryFromFile();
 CityListPosition CreateNewCityElement(char name[], int population);
-int ReadCityFromFile(CityListPosition head, char fileName[]);
+CountryTreePosition ReadCityFromFile(CityListPosition head, char fileName[]);
 int InorderPrint(CountryTreePosition current);
 int PrintCities(CityListPosition head);
 CountryTreePosition FindCountry(CountryTreePosition root, char selectedName[]);
@@ -122,7 +122,7 @@ CountryTreePosition CreateNewCountryElement(char name[])
 	return newElement;
 }
 
-int InsertIntoTree(CountryTreePosition current, CountryTreePosition newElement)
+CountryTreePosition InsertIntoTree(CountryTreePosition current, CountryTreePosition newElement)
 {
 	if (!current)
 		return newElement;
@@ -159,18 +159,9 @@ CountryTreePosition ReadCountryFromFile()
 
 		if (sscanf(buffer, "%s %s %n", countryName, fileName, &bytesRead) == 2)
 		{
-			if (!treeRoot)
-			{
-				CountryTreeNode treeRootElement = { .countryName = countryName, .head = NULL, .left = NULL, .right = NULL };
-				treeRoot = &treeRootElement;
-				ReadCityFromFile(treeRoot->head, fileName);
-			}
-			else
-			{
-				newCountryElement = CreateNewCountryElement(countryName);
-				treeRoot = InsertIntoTree(treeRoot, newCountryElement);
-				ReadCityFromFile(newCountryElement->head, fileName);
-			}
+			newCountryElement = CreateNewCountryElement(countryName);
+			treeRoot = InsertIntoTree(treeRoot, newCountryElement);
+			ReadCityFromFile(newCountryElement->head, fileName);
 			buffer += bytesRead;
 		}
 		else
@@ -202,7 +193,7 @@ CityListPosition CreateNewCityElement(char name[], int population)
 	return newElement;
 }
 
-int ReadCityFromFile(CityListPosition head, char fileName[])
+CountryTreePosition ReadCityFromFile(CityListPosition head, char fileName[])
 {
 	FILE* file = NULL;
 	char cityName[MAX_LENGTH] = { 0 };
@@ -269,18 +260,21 @@ int PrintCities(CityListPosition head)
 	return EXIT_SUCCESS;
 }
 
-CountryTreePosition FindCountry(CountryTreePosition root, char selectedName[])
+CountryTreePosition FindCountry(CountryTreePosition temp, char selectedName[])
 {
-	CountryTreePosition temp = root;
+	if (temp == NULL)
+		return NULL;
 
 	if (strcmp(temp->countryName, selectedName) > 0)
-		FindCountry(temp->left, selectedName);
+		return FindCountry(temp->left, selectedName);
 
 	else if (strcmp(temp->countryName, selectedName) < 0)
-		FindCountry(temp->right, selectedName);
+		return FindCountry(temp->right, selectedName);
 
-	else return temp;
+	else
+		return temp;
 }
+
 
 int FindLargerCities(CityListPosition head, int selectedPopulation)
 {

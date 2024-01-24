@@ -1,13 +1,8 @@
 ﻿  Lab10b.c
 C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(75,24): warning C4013: 'strcmp' undefined; assuming extern returning int
 C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(117,2): warning C4013: 'strcpy' undefined; assuming extern returning int
-C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(128,3): warning C4047: 'return': 'int' differs in levels of indirection from 'CountryTreePosition'
-C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(131,17): warning C4047: '=': 'CountryTreePosition' differs in levels of indirection from 'int'
-C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(134,18): warning C4047: '=': 'CountryTreePosition' differs in levels of indirection from 'int'
-C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(136,2): warning C4047: 'return': 'int' differs in levels of indirection from 'CountryTreePosition'
 C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(152,3): warning C4047: 'return': 'CountryTreePosition' differs in levels of indirection from 'int'
-C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(171,14): warning C4047: '=': 'CountryTreePosition' differs in levels of indirection from 'int'
 C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(179,4): warning C4047: 'return': 'CountryTreePosition' differs in levels of indirection from 'int'
-C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(164,21): warning C4047: 'initializing': 'char' differs in levels of indirection from 'char *'
-C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(283): warning C4715: 'FindCountry': not all control paths return a value
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(217,3): warning C4047: 'return': 'CountryTreePosition' differs in levels of indirection from 'int'
+C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\Lab10b\Lab10b.c(239,4): warning C4047: 'return': 'CountryTreePosition' differs in levels of indirection from 'int'
   Lab10b.vcxproj -> C:\Users\jurem\Desktop\STRUKTURE\StrukturePodataka\Lab10b\x64\Debug\Lab10b.exe
